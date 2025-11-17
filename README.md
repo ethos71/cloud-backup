@@ -1,32 +1,19 @@
-# Cloud Backup from Google Drive
+# Google Takeout Backup
 
-This repository backs up files from Google Drive to GitHub.
-
-## Setup
-
-1. **Install rclone** (if not already installed):
-   ```bash
-   curl https://rclone.org/install.sh | sudo bash
-   ```
-
-2. **Configure rclone for Google Drive**:
-   ```bash
-   rclone config
-   ```
-   - Choose `n` for new remote
-   - Name it `gdrive`
-   - Choose `Google Drive` from the list
-   - Follow prompts to authenticate with: **dominick.do.campbell@gmail.com**
-   - Accept default settings for most options
+This repository stores backups from Google Takeout (Google Photos, Google Drive, etc.) on GitHub.
 
 ## Usage
 
-### Sync files from Google Drive:
-```bash
-./sync_from_gdrive.sh
-```
+### Download from Google Takeout:
 
-This will download all files from your Google Drive to the `gdrive_backup/` directory.
+See detailed instructions in: **[GOOGLE_TAKEOUT_GUIDE.md](GOOGLE_TAKEOUT_GUIDE.md)**
+
+Quick summary:
+1. Go to: https://takeout.google.com/
+2. Select the data you want to export (Google Photos, Google Drive, etc.)
+3. Choose export settings (50 GB zip files recommended)
+4. Wait for email with download links (usually a few hours)
+5. Download and extract to `takeout/` directory
 
 ### Commit and push to GitHub:
 ```bash
@@ -36,19 +23,19 @@ git push
 
 Or manually:
 ```bash
-git add gdrive_backup/
-git commit -m "Backup from Google Drive"
+git add takeout/
+git commit -m "Backup from Google Takeout"
 git push
 ```
 
 ## Files
 
-- `sync_from_gdrive.sh` - Downloads files from Google Drive using rclone
 - `auto_commit.sh` - Automatically commits changes to git
-- `gdrive_backup/` - Directory containing synced files (created on first sync)
+- `takeout/` - Directory for Google Takeout downloads
+- `GOOGLE_TAKEOUT_GUIDE.md` - Step-by-step guide for downloading from Google Takeout
 
 ## Notes
 
-- The sync uses `rclone sync` which mirrors Google Drive to local
-- Excluded files: .DS_Store, *.tmp, Thumbs.db, desktop.ini
-- Large files may take time to download
+- Google Takeout includes all your data at full quality with metadata
+- Large exports may take hours to process
+- Downloads are available for 7 days after creation
